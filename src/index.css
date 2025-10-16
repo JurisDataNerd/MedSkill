@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+/* helper optional jika arbitrary CSS tidak aktif */
+.preserve-3d { transform-style: preserve-3d; }
+.backface-hidden { backface-visibility: hidden; }
+.perspective-1200 { perspective: 1200px; }
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.animate-bounce-slow {
+  animation: bounce-slow 2s infinite;
+}
+
+
+/* ✅ Tambahkan custom keyframe fadeIn */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ✅ Tambahkan utility animate-fadeIn jika ingin bernama pendek */
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Opsional variasi (jika ingin dipakai nanti) */
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+.animate-float { animation: float 4s ease-in-out infinite; }
