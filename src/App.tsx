@@ -5,6 +5,9 @@ import Navbar from "./components/Navbar";
 import LandingPage from "./pages/LandingPage";
 import RentalCatalog from "./pages/RentalCatalog";
 import LesS1 from "./pages/LesS1";
+import BimbelPage from "./pages/BimbelUKMPPD/BimbelPage";
+import TryOutSection from "./pages/BimbelUKMPPD/components/TryOutSection";
+import TryoutExamPage from "./pages/TryoutExamPage";
  
 
 // Halaman Admin
@@ -25,6 +28,9 @@ export default function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/rental" element={<RentalCatalog />} />
         <Route path="/les/s1" element={<LesS1 />} />
+        <Route path="/bimbel" element={<BimbelPage />} />
+        <Route path="/bimbel/tryout" element={<TryOutSection />} />
+        <Route path="/tryout/demo" element={<TryoutExamPage />} />
       
 
         {/* ✅ Halaman Admin (HANYA ADMIN) */}

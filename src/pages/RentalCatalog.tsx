@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { getAllManekin } from "../lib/rentalService";
 import Footer from "../components/Footer";
-import { MessageCircle } from "lucide-react";
-  
+import { MessageCircle, X } from "lucide-react";
 
- // Link Google Sheets untuk cek ketersediaan
-const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1fTaBOuwMQGHtAVowpGL_cWJ6W7RZWoqhaZGiCDTpTdw/edit?usp=sharing";
+// ====== Link eksternal (bebas diubah) ======
+const SPREADSHEET_URL =
+  "https://docs.google.com/spreadsheets/d/1fTaBOuwMQGHtAVowpGL_cWJ6W7RZWoqhaZGiCDTpTdw/edit?usp=sharing";
 const WHATSAPP_URL = "https://wa.link/jetlp9";
 
 type Manekin = {
@@ -20,96 +20,106 @@ type Manekin = {
 const currency = (n: number | null | undefined) =>
   "Rp " + (n ?? 0).toLocaleString("id-ID");
 
-// =====================================================
-// ✅ MODAL COMPONENT (KETENTUAN RENTAL)
-// =====================================================
-function RentalNoticeModal({ onAgree }: { onAgree: () => void }) {
+function RentalNoticeModal({
+  onClose,
+}: {
+  onClose: () => void;
+}) {
   const [checked, setChecked] = useState(false);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl p-6 relative animate-[fadeIn_0.3s_ease]">
-        {/* Konten */}
-        <div className="flex flex-col md:flex-row items-center gap-6">
-          {/* Maskot */}
-          <img
-            src="/maskot.png"
-            alt="MedSkill Mascot"
-            className="w-32 h-32 object-contain animate-[bounce_2s_infinite]"
-          />
+      <div
+        className="relative w-full max-w-lg mx-4 rounded-2xl shadow-2xl
+                   bg-gradient-to-b from-white to-[#F6FAFF] border border-white/60
+                   animate-[fadeIn_0.25s_ease-out_forwards] opacity-0"
+      >
+        {/* Tombol Close (opsional) */}
+        <button
+          aria-label="Tutup"
+          onClick={onClose}
+          className="absolute top-3 right-3 p-2 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition"
+        >
+          <X className="w-5 h-5" />
+        </button>
 
-          {/* Pesan */}
-          <div className="text-gray-700 text-sm leading-relaxed">
-            <p className="font-semibold mb-2">
-              Halo kak, senang bisa membantu kakak, berikut beberapa hal yang perlu diperhatikan :
-            </p>
-            <ol className="list-decimal list-inside space-y-1">
-              <li>Jam operasional admin pukul 08.00-22.00 WIB</li>
-              <li>Pemesanan maksimal H-1</li>
-              <li>
-                Sewa manekin kami batasi dari pukul 06.00-24.00, pemesanan hingga diatas pukul 24.00
-                wajib memesan sampai minimal pukul 06.00 pagi besoknya
-              </li>
-              <li>Perubahan lokasi pengiriman maksimal H-1 sebelum jam 22.00</li>
-              <li>Semua transaksi hanya melalui akun MEDSKILL</li>
-            </ol>
-            <p className="mt-3 font-medium">
-              Sekian terimakasih kak, selamat datang di MEDSKILL, tempat untuk upgrade your skills!
+        {/* Isi modal */}
+        <div className="px-6 pt-8 pb-6">
+          {/* Maskot di atas (center) */}
+          <div className="flex justify-center">
+            <img
+              src="/maskot.png"
+              alt="Maskot MedSkill"
+              className="w-24 h-24 object-contain animate-[bounce_2s_infinite]"
+            />
+          </div>
+
+          <div className="text-center mt-3">
+            <h2 className="text-xl md:text-2xl font-extrabold text-[#1E3A8A]">
+              Selamat Datang di Sewa Manekin MedSkill
+            </h2>
+            <p className="mt-2 text-sm text-gray-600">
+              Halo kak, senang bisa membantu! Mohon baca beberapa ketentuan di bawah ini.
             </p>
           </div>
-        </div>
 
-        {/* Checkbox */}
-        <div className="flex items-center gap-2 mt-6">
-          <input
-            type="checkbox"
-            id="agree"
-            checked={checked}
-            onChange={(e) => setChecked(e.target.checked)}
-            className="w-4 h-4"
-          />
-          <label htmlFor="agree" className="text-sm text-gray-700">
-            Saya menyetujui dan memahami ketentuan di atas.
-          </label>
-        </div>
+          {/* Konten scrollable agar aman di mobile */}
+          <div className="mt-5 max-h-[45vh] overflow-y-auto pr-1">
+            <ol className="list-decimal list-inside space-y-2 text-[0.95rem] text-gray-700 leading-relaxed">
+              <li>Jam operasional admin pukul 08.00–22.00 WIB.</li>
+              <li>Pemesanan maksimal H-1.</li>
+              <li>
+                Sewa manekin dibatasi pukul 06.00–24.00. Pemesanan melewati 24.00
+                wajib dipesan hingga minimal pukul 06.00 pagi berikutnya.
+              </li>
+              <li>Perubahan lokasi pengiriman maksimal H-1 sebelum jam 22.00.</li>
+              <li>Semua transaksi hanya melalui akun <b>MEDSKILL</b>.</li>
+            </ol>
 
-        {/* Button */}
-        <button
-          disabled={!checked}
-          onClick={onAgree}
-          className={`mt-4 w-full py-2 rounded-xl text-white font-semibold transition ${
-            checked
-              ? "bg-blue-600 hover:bg-blue-700"
-              : "bg-gray-400 cursor-not-allowed"
-          }`}
-        >
-          Mulai
-        </button>
+            <p className="mt-4 text-sm text-gray-600">
+              Terima kasih. Selamat datang di <b>MEDSKILL</b> — tempat untuk{" "}
+              <i>upgrade your skills</i>!
+            </p>
+          </div>
+
+          {/* Checkbox + Tombol */}
+          <div className="mt-5">
+            <label className="flex items-start gap-2 text-sm text-gray-700 select-none">
+              <input
+                type="checkbox"
+                className="mt-0.5 h-4 w-4"
+                checked={checked}
+                onChange={(e) => setChecked(e.target.checked)}
+              />
+              <span>
+                Saya menyetujui dan memahami seluruh ketentuan di atas.
+              </span>
+            </label>
+
+            <button
+              disabled={!checked}
+              onClick={onClose}
+              className={`mt-4 w-full py-3 rounded-xl font-semibold text-white transition
+                ${checked ? "bg-[#2563EB] hover:bg-[#1D4ED8]" : "bg-gray-400 cursor-not-allowed"}
+              `}
+            >
+              Mulai
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-// =====================================================
-// ✅ RENTAL CATALOG HALAMAN UTAMA
-// =====================================================
+/* =====================================================
+   Halaman Katalog Sewa
+===================================================== */
 export default function RentalCatalog() {
   const [items, setItems] = useState<Manekin[]>([]);
   const [loading, setLoading] = useState(true);
   const [flipped, setFlipped] = useState<Record<string, boolean>>({});
-  const [showNotice, setShowNotice] = useState(false);
-
-  useEffect(() => {
-    const accepted = localStorage.getItem("rental_notice_accepted");
-    if (!accepted) {
-      setShowNotice(true);
-    }
-  }, []);
-
-  const handleAgree = () => {
-    localStorage.setItem("rental_notice_accepted", "true");
-    setShowNotice(false);
-  };
+  const [showNotice, setShowNotice] = useState(true); // selalu muncul
 
   useEffect(() => {
     const load = async () => {
@@ -126,30 +136,36 @@ export default function RentalCatalog() {
 
   return (
     <div className="relative min-h-screen bg-white">
-      {/* ✅ Modal (tampil kalau belum agree) */}
-      {showNotice && <RentalNoticeModal onAgree={handleAgree} />}
+      {/* POPUP */}
+      {showNotice && <RentalNoticeModal onClose={() => setShowNotice(false)} />}
 
       {/* Background lembut ala landing */}
-      <div aria-hidden className="pointer-events-none absolute -top-24 -left-24 w-[36rem] h-[36rem] rounded-full bg-[#E7F0FF]" />
-      <div aria-hidden className="pointer-events-none absolute -bottom-40 -right-40 w-[48rem] h-[48rem] rounded-full bg-[#F3F4F6]" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 -left-24 w-[36rem] h-[36rem] rounded-full bg-[#E7F0FF]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-40 -right-40 w-[48rem] h-[48rem] rounded-full bg-[#F3F4F6]"
+      />
 
       {/* Header */}
       <section className="relative pt-28 md:pt-32 pb-6">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="opacity-0 animate-fadeIn">
+          <div className="opacity-0 animate-[fadeIn_0.35s_ease-out_forwards]">
             <h1 className="text-3xl md:text-4xl font-extrabold text-[#1E3A8A]">
-              Katalog Rental Manekin
+              Katalog Sewa Manekin
             </h1>
             <p className="mt-2 text-gray-600 max-w-2xl">
               Pilih perangkat praktik medis yang sesuai kebutuhan Anda.
               Harga tersedia untuk periode <span className="font-medium">3 jam</span> dan{" "}
-              <span className="font-medium">per hari</span>. Klik kartu untuk melihat deskripsi.
+              <span className="font-medium">per hari</span>. Ketuk/klik kartu untuk melihat deskripsi.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Grid Katalog */}
+      {/* Grid */}
       <section className="relative pb-12 md:pb-16">
         <div className="max-w-7xl mx-auto px-4">
           {loading ? (
@@ -167,9 +183,9 @@ export default function RentalCatalog() {
                     style={{ animationDelay: `${idx * 50}ms` }}
                   >
                     <div
-                      className={`relative h-[22rem] rounded-2xl border border-gray-100 shadow-sm transition-transform duration-500 [transform-style:preserve-3d] hover:-translate-y-0.5 hover:shadow-md ${
-                        isFlipped ? "[transform:rotateY(180deg)]" : ""
-                      }`}
+                      className={`relative h-[22rem] rounded-2xl border border-gray-100 shadow-sm transition-transform duration-500 [transform-style:preserve-3d]
+                                  hover:-translate-y-0.5 hover:shadow-md
+                                  ${isFlipped ? "[transform:rotateY(180deg)]" : ""}`}
                       onClick={() => toggleFlip(m.id)}
                     >
                       {/* Front */}
@@ -244,7 +260,7 @@ export default function RentalCatalog() {
             </div>
           )}
 
-          {/* CTA bawah */}
+          {/* CTA bawah (tengah) */}
           {!loading && items.length > 0 && (
             <div className="mt-12 md:mt-14 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
