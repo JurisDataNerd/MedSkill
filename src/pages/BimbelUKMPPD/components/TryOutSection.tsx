@@ -6,7 +6,7 @@ type LeaderRow = {
 };
 
 type TryoutItem = {
-  id: string;
+  id: string; 
   title: string;
   questions: number;
   start?: string; // only for upcoming/live

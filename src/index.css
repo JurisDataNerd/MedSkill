@@ -43,3 +43,42 @@
   100% { transform: translateY(0px); }
 }
 .animate-float { animation: float 4s ease-in-out infinite; }
+
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-scroll {
+  display: flex;
+  animation: scroll 25s linear infinite;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll {
+  animation: scroll 35s linear infinite;
+}
+
+/* 🧷 Pause saat hover di area mentor manapun */
+#mentor-scroll:hover {
+  animation-play-state: paused;
+}
+#mentor-scroll:hover * {
+  animation-play-state: paused;
+}
+
+
+@keyframes bluePulse {
+  0%, 100% { filter: brightness(1); opacity: 0.9; }
+  50% { filter: brightness(1.1); opacity: 1; }
+}
+
+@keyframes blueFlame {
+  0%, 100% { text-shadow: 0 0 6px rgba(37, 99, 235, 0.4); }
+  50% { text-shadow: 0 0 14px rgba(96, 165, 250, 0.8); }
+}
+
