@@ -2,7 +2,7 @@ import { useEffect, useState, Fragment } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthModal } from "../context/AuthContext";
-import { Bars3Icon, XMarkIcon, ArrowRightOnRectangleIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon, ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 import { Menu, Transition } from "@headlessui/react";
 
 export default function Navbar() {
