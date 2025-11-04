@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#1E3A8A] text-white mt-20">
       {/* Wave background or decorative */}
-      <div className="absolute inset-x-0 -top-6 h-6 bg-gradient-to-b from-white to-transparent opacity-60" />
+      <div className="absolute inset-x-0 -top-6 h-6 bg-linear-to-b from-white to-transparent opacity-60" />
 
       <div className="max-w-7xl mx-auto px-6 py-12 grid gap-10 md:grid-cols-4">
         {/* Logo & intro */}

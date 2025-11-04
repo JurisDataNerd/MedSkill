@@ -87,7 +87,7 @@ export default function BimbelPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <main className="flex-grow mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-28 pb-16">
+      <main className="grow mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-28 pb-16">
         {/* HEADER */}
         <motion.section
           className="mb-8 text-center"

@@ -146,7 +146,7 @@ export default function Navbar() {
           <div className="flex h-16 items-center justify-between">
             {/* LOGO */}
             <div onClick={() => go("/")} className="flex items-center gap-2 cursor-pointer">
-              <span className="inline-block h-8 w-8 rounded-xl bg-gradient-to-br from-blue-600 to-blue-400" />
+              <span className="inline-block h-8 w-8 rounded-xl bg-linear-to-br from-blue-600 to-blue-400" />
               <span className="text-lg font-semibold tracking-tight text-slate-800">
                 MedSkill
               </span>
@@ -254,7 +254,7 @@ export default function Navbar() {
 
       {/* MOBILE MENU */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm">
+        <div className="fixed inset-0 z-60 bg-black/40 backdrop-blur-sm">
           <div className="absolute top-0 right-0 w-4/5 max-w-xs h-full bg-white shadow-xl p-6 flex flex-col">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-[#1E3A8A]">Menu</h2>
@@ -315,7 +315,7 @@ export default function Navbar() {
 
       {/* AUTH MODAL */}
       {showAuthModal && (
-        <div className="fixed inset-0 flex justify-center items-center z-[70] bg-black/40 backdrop-blur-sm">
+        <div className="fixed inset-0 flex justify-center items-center z-70 bg-black/40 backdrop-blur-sm">
           <div className="bg-white/95 border border-gray-200 rounded-2xl shadow-xl p-8 w-[370px] relative">
             <button
               onClick={() => {

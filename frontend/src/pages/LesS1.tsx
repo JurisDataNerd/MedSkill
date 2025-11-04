@@ -60,7 +60,7 @@ export default function LesS1() {
       </section>
 
       {/* Content */}
-      <main className="flex-grow relative">
+      <main className="grow relative">
         {tab === "materi" ? <MateriSection /> : <OsceSection />}
       </main>
 

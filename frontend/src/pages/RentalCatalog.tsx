@@ -80,7 +80,7 @@ function RentalNoticeModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-3">
-      <div className="relative w-full max-w-lg mx-auto rounded-2xl shadow-2xl bg-gradient-to-b from-white to-[#F6FAFF] border border-white/60 overflow-hidden">
+      <div className="relative w-full max-w-lg mx-auto rounded-2xl shadow-2xl bg-linear-to-b from-white to-[#F6FAFF] border border-white/60 overflow-hidden">
         <button
           aria-label="Tutup"
           onClick={onClose}
@@ -170,7 +170,7 @@ export default function RentalCatalog() {
       {showNotice && <RentalNoticeModal onClose={() => setShowNotice(false)} />}
       {selected && <ImagePopup manekin={selected} onClose={() => setSelected(null)} />}
 
-      <main className="flex-grow pt-24 sm:pt-28 pb-16 px-4 max-w-7xl mx-auto w-full">
+      <main className="grow pt-24 sm:pt-28 pb-16 px-4 max-w-7xl mx-auto w-full">
         <div className="text-center mb-8">
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1E3A8A]">
             Katalog Sewa Manekin

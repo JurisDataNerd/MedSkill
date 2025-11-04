@@ -3,12 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getActiveHotTopics } from "../lib/hotTopicService";
 import Footer from "../components/Footer";
 import "../index.css";
-import {
-  GraduationCap,
-  BookOpen,
-  Brain,
-  Stethoscope,
-} from "lucide-react";
+import { GraduationCap, BookOpen, Brain, Stethoscope } from "lucide-react";
 import { Flame, ArrowRight } from "lucide-react";
 
 export default function LandingPage() {
@@ -55,16 +50,19 @@ export default function LandingPage() {
   };
 
   const mentors = [
-    { name: "dr. Claresta Lumi", position: "Intruktur MedSkill", img: "/mentor1.png" },
-    { name: "dr. Maura Andini", position: "Instruktur MedSkill", img: "/mentor2.png" },
-    { name: "dr. Laila Amini", position: "Instruktur MedSkill", img: "/mentor3.png" },
-    { name: "dr. Nadira Chandrasa", position: "Instruktur MedSkill", img: "/mentor4.png" },
-    { name: "dr. Najla Mumtaza", position: "Instruktur MedSkill", img: "/mentor5.png" },
-    { name: "dr. Ofadhani Afwan", position: "Instruktur MedSkill", img: "/mentor6.png" },
-    { name: "dr. Angelie Tirza Suryanto", position: "Instruktur MedSkill", img: "/mentor7.png" },
-    { name: "dr. Sarah Salsabila", position: "Instruktur MedSkill", img: "/mentor8.png" },
-    { name: "dr. Ketut Shri Satya Wiwekananda", position: "Instruktur MedSkill", img: "/mentor9.png" },
-    { name: "dr. Rizkiqo Pandai Hamukti", position: "Instruktur MedSkill", img: "/mentor10.png" },
+    { name: "dr. Claresta Lumi", position: "CBT UKMPPD 89", img: "/mentor1.png" },
+    { name: "dr. Maura Andini", position: "CBT UKMPPD 94", img: "/mentor2.png" },
+    { name: "dr. Laila Khairunnisa Amini", position: "CBT UKMPPD 94", img: "/mentor3.png" },
+    { name: "dr. Nadira Chandrasa Mahadewi", position: "CBT UKMPPD 95.3", img: "/mentor4.png" },
+    { name: "dr. Najla Mumtaza", position: "CBT UKMPPD 96", img: "/mentor5.png" },
+    { name: "dr. Ofadhani Afwan", position: "CBT UKMPPD 90", img: "/mentor6.png" },
+    { name: "dr. Angelie Tirza Suryanto", position: "CBT UKMPPD 92.6", img: "/mentor7.png" },
+    { name: "dr. Sarah Salsabila", position: "CBT UKMPPD 91.3", img: "/mentor8.png" },
+    { name: "dr. Muhammad Aldo Fausta", position: "CBT UKMPPD 91.3", img: "/mentor9.png" },
+    { name: "dr. Rizkiqo Pandai Hamukti", position: "CBT UKMPPD 95.3", img: "/mentor10.png" },
+    { name: "dr. Ketut Shri Satya Wiwekananda", position: "CBT UKMPPD 90", img: "/mentor11.png" },
+    { name: "dr. Rezky Ilham Yudhasaputra", position: "CBT UKMPPD 87.33", img: "/mentor12.png" },
+    { name: "dr. Aurelia Priscilla Regita Putri", position: "CBT UKMPPD 87", img: "/mentor13.png" },
   ];
 
   return (
@@ -74,13 +72,13 @@ export default function LandingPage() {
         id="hero"
         className="relative overflow-hidden pt-28 md:pt-32 pb-16 md:pb-24 fade-in-section"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,#93C5FD_1px,transparent_0)] [background-size:20px_20px] opacity-30 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,#93C5FD_1px,transparent_0)] bg-size-[20px_20px] opacity-30 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 relative">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div>
               <h1 className="text-4xl md:text-6xl font-extrabold leading-tight text-[#1E3A8A]">
                 MedSkill <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#1E3A8A]">
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-[#2563EB] to-[#1E3A8A]">
                   Solusi Lengkap Belajar Kedokteran
                 </span>
               </h1>
@@ -107,7 +105,7 @@ export default function LandingPage() {
 
             <div className="relative">
               <div
-                className="absolute -inset-6 rounded-[2rem] bg-gradient-to-tr from-[#E7F0FF] to-transparent blur-2xl"
+                className="absolute -inset-6 rounded-4xl bg-linear-to-tr from-[#E7F0FF] to-transparent blur-2xl"
                 aria-hidden
               />
               <img
@@ -123,20 +121,18 @@ export default function LandingPage() {
       {/* HOT TOPIC */}
       <section
         id="hot-topic"
-        className="relative py-20 overflow-hidden bg-gradient-to-b from-[#F9FAFB] via-[#F9FBFF] to-white text-[#1E3A8A] fade-in-section"
+        className="relative py-20 overflow-hidden bg-linear-to-b from-[#F9FAFB] via-[#F9FBFF] to-white text-[#1E3A8A] fade-in-section"
       >
-        {/* Subtle animated background */}
         <div
           aria-hidden
           className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(96,165,250,0.08),transparent_70%)]"
         />
 
         <div className="relative max-w-7xl mx-auto px-6 md:px-8">
-          {/* SECTION HEADER */}
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-2 mb-3">
               <Flame className="w-7 h-7 text-blue-500 animate-pulse" />
-              <h2 className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-700 bg-clip-text text-transparent">
+              <h2 className="text-3xl md:text-4xl font-extrabold bg-linear-to-r from-blue-600 via-blue-500 to-indigo-700 bg-clip-text text-transparent">
                 Hot Topic
               </h2>
             </div>
@@ -146,7 +142,6 @@ export default function LandingPage() {
             </p>
           </div>
 
-          {/* HOT TOPIC GRID */}
           {loading ? (
             <p className="text-center text-gray-500">Memuat hot topic...</p>
           ) : hotTopics.length === 0 ? (
@@ -160,17 +155,15 @@ export default function LandingPage() {
                   key={topic.id}
                   className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden"
                 >
-                  {/* Image */}
                   <div className="relative overflow-hidden">
                     <img
                       src={topic.img || "/placeholder.jpg"}
                       alt={topic.title}
                       className="w-full h-48 object-center object-cover group-hover:scale-[1.03] transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1E3A8A]/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-linear-to-t from-[#1E3A8A]/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
 
-                  {/* Content */}
                   <div className="p-6">
                     <h3 className="text-lg md:text-xl font-bold text-[#1E3A8A] mb-2 group-hover:text-[#2563EB] transition-colors duration-200">
                       {topic.title}
@@ -181,7 +174,7 @@ export default function LandingPage() {
 
                     <button
                       onClick={() => navigate(topic.link || "#")}
-                      className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 text-white text-sm font-medium hover:shadow-md hover:brightness-105 transition-all"
+                      className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-linear-to-r from-blue-600 to-blue-500 text-white text-sm font-medium hover:shadow-md hover:brightness-105 transition-all"
                     >
                       Daftar Sekarang
                       <ArrowRight className="w-4 h-4" />
@@ -194,13 +187,12 @@ export default function LandingPage() {
         </div>
       </section>
 
- {/* WHY SECTION */}
+      {/* WHY SECTION */}
       <section
         id="why"
-        className="py-20 bg-gradient-to-b from-white via-[#F9FBFF] to-white fade-in-section"
+        className="py-20 bg-linear-to-b from-white via-[#F9FBFF] to-white fade-in-section"
       >
         <div className="max-w-7xl mx-auto px-6 md:px-8">
-          {/* HEADER */}
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#1E3A8A] mb-3">
               Kenapa <span className="text-blue-600">MedSkill?</span>
@@ -211,7 +203,6 @@ export default function LandingPage() {
             </p>
           </div>
 
-          {/* FEATURES GRID */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
@@ -239,7 +230,7 @@ export default function LandingPage() {
                 key={i}
                 className="group bg-white rounded-2xl p-7 border border-gray-100 hover:border-blue-200 shadow-sm hover:shadow-lg hover:shadow-blue-100 transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="mb-5 flex items-center justify-center rounded-xl bg-gradient-to-br from-white to-gray-50 p-4 w-16 h-16 mx-auto shadow-inner group-hover:shadow-md group-hover:bg-white transition-all duration-300">
+                <div className="mb-5 flex items-center justify-center rounded-xl bg-linear-to-br from-white to-gray-50 p-4 w-16 h-16 mx-auto shadow-inner group-hover:shadow-md group-hover:bg-white transition-all duration-300">
                   {item.icon}
                 </div>
                 <h3 className="font-semibold text-lg text-[#1E3A8A] text-center mb-2">
@@ -269,10 +260,9 @@ export default function LandingPage() {
               {mentors.concat(mentors).map((mentor, i) => (
                 <div
                   key={i}
-                  className="flex-shrink-0 w-52 sm:w-56 bg-[#2044B1] rounded-2xl border border-white/10 p-4 text-center
-                            hover:bg-[#2563EB] transition-all duration-300 hover:-translate-y-1 shadow-md"
+                  className="shrink-0 w-52 sm:w-56 bg-[#2044B1] rounded-2xl border border-white/10 p-4 text-center hover:bg-[#2563EB] transition-all duration-300 hover:-translate-y-1 shadow-md"
                 >
-                  <div className="w-full aspect-[4/5] overflow-hidden rounded-xl mb-3">
+                  <div className="w-full aspect-4/5 overflow-hidden rounded-xl mb-3">
                     <img
                       src={mentor.img}
                       alt={mentor.name}
