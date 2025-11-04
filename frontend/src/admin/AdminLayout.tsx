@@ -40,6 +40,13 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               <span>Manekin Manager</span>
             </NavLink>
           </div>
+  
+          <div>
+            <p className="text-xs font-semibold text-gray-400 mb-2">LANDING PAGE</p>
+           <NavLink to="/admin/bimbel" className={active}>
+            <span>Bimbel Manager</span>
+          </NavLink>
+          </div>
 
           <div>
             <p className="text-xs font-semibold text-gray-400 mb-2">AUTH</p>

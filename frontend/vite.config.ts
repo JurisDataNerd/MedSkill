@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  root: '.', // pastikan ini menunjuk ke folder yang berisi index.html
   plugins: [
     react({
       babel: {
@@ -12,4 +13,8 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
+  server: {
+    port: 5173,
+    open: true,
+  },
 })

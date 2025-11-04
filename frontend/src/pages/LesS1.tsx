@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   BookOpenCheck,
   MapPin,
@@ -19,49 +19,22 @@ const currency = (n: number) => "Rp " + (n || 0).toLocaleString("id-ID");
 export default function LesS1() {
   const [tab, setTab] = useState<TabKey>("materi");
 
-  // Parallax dekorasi simple (performant & tanpa lib)
-  const [scrollY, setScrollY] = useState(0);
-  useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY || 0);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
-    <div className="relative min-h-screen bg-white">
-      {/* Parallax blobs */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-24 -left-24 w-[36rem] h-[36rem] rounded-full bg-[#E7F0FF]"
-        style={{ transform: `translateY(${scrollY * 0.15}px)` }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-96 -right-40 w-[42rem] h-[42rem] rounded-full bg-[#F3F4F6]"
-        style={{ transform: `translateY(${scrollY * 0.08}px)` }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute bottom-[-18rem] left-1/2 -translate-x-1/2 w-[60rem] h-[60rem] rounded-full bg-[#EFF6FF]"
-        style={{ transform: `translateY(${scrollY * 0.05}px)` }}
-      />
-
+    <div className="flex flex-col min-h-screen bg-white">
       {/* Header */}
-      <section className="relative pt-28 md:pt-32 pb-10">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="opacity-0 animate-[fadeIn_0.4s_ease-out_forwards]">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-[#1E3A8A]">
+      <section className="relative pt-24 sm:pt-28 pb-8 sm:pb-10">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="animate-[fadeIn_0.4s_ease-out_forwards]">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1E3A8A]">
               Les S1 MedSkill
             </h1>
-            <p className="mt-2 text-gray-600 max-w-2xl">
-              Pilih jenis kelas yang dibutuhkan dengan jadwal
-              fleksibel dan opsi online/offline.
+            <p className="mt-2 text-gray-600 text-sm sm:text-base max-w-2xl">
+              Pilih jenis kelas yang dibutuhkan dengan jadwal fleksibel dan opsi online/offline.
             </p>
           </div>
 
           {/* Tabs */}
-          <div className="mt-6 inline-flex rounded-2xl border border-gray-200 bg-white p-1 shadow-sm">
+          <div className="mt-5 sm:mt-6 inline-flex flex-wrap rounded-2xl border border-gray-200 bg-white p-1 shadow-sm">
             <button
               onClick={() => setTab("materi")}
               className={`px-4 py-2 rounded-xl text-sm font-medium transition ${
@@ -87,7 +60,7 @@ export default function LesS1() {
       </section>
 
       {/* Content */}
-      <main className="relative">
+      <main className="flex-grow relative">
         {tab === "materi" ? <MateriSection /> : <OsceSection />}
       </main>
 
@@ -102,10 +75,10 @@ export default function LesS1() {
 
 function MateriSection() {
   return (
-    <section className="pb-20">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="pb-16 sm:pb-20">
+      <div className="max-w-6xl mx-auto px-4">
         {/* Info cards */}
-        <div className="grid gap-6 md:grid-cols-3 opacity-0 animate-[fadeIn_0.5s_ease-out_forwards]">
+        <div className="grid gap-5 sm:gap-6 md:grid-cols-3 animate-[fadeIn_0.5s_ease-out_forwards]">
           <InfoCard
             icon={<BookOpenCheck className="w-6 h-6" />}
             title="Materi"
@@ -123,16 +96,14 @@ function MateriSection() {
           />
         </div>
 
-        {/* Materi yang bisa dipilih + Pricing */}
+        {/* Materi + Pricing */}
         <div className="mt-8 grid gap-6 md:grid-cols-2">
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 opacity-0 animate-[fadeIn_0.6s_ease-out_forwards]">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 animate-[fadeIn_0.6s_ease-out_forwards]">
             <div className="flex items-center gap-2">
               <ListChecks className="w-5 h-5 text-[#1E3A8A]" />
-              <h3 className="font-semibold text-[#111827]">
-                Materi yang bisa dipilih
-              </h3>
+              <h3 className="font-semibold text-[#111827]">Materi yang bisa dipilih</h3>
             </div>
-            <ul className="mt-3 space-y-2 text-gray-700">
+            <ul className="mt-3 space-y-2 text-gray-700 text-sm sm:text-base">
               {[
                 "Lecture",
                 "Ujian blok",
@@ -147,39 +118,41 @@ function MateriSection() {
               ))}
             </ul>
 
-            <div className="mt-6 rounded-xl bg-blue-50 text-blue-800 px-4 py-3">
+            <div className="mt-6 rounded-xl bg-blue-50 text-blue-800 px-4 py-3 text-sm sm:text-base">
               Tersedia juga paket <span className="font-semibold">bundle 10 sesi</span>.
             </div>
           </div>
 
           {/* Pricing table */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-0 overflow-hidden opacity-0 animate-[fadeIn_0.7s_ease-out_forwards]">
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden animate-[fadeIn_0.7s_ease-out_forwards]">
             <div className="px-6 py-4 border-b">
-              <h3 className="font-semibold text-[#111827]">Harga per sesi</h3>
-              <p className="text-sm text-gray-500">Offline & Online</p>
+              <h3 className="font-semibold text-[#111827] text-base sm:text-lg">
+                Harga per sesi
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-500">Offline & Online</p>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-left">
-                <thead className="bg-gray-50 text-gray-600 text-sm">
+              <table className="w-full text-left text-sm sm:text-base">
+                <thead className="bg-gray-50 text-gray-600 text-xs sm:text-sm">
                   <tr>
-                    <th className="py-3 px-6">Jumlah Orang</th>
-                    <th className="py-3 px-6">Offline</th>
-                    <th className="py-3 px-6">Online</th>
+                    <th className="py-3 px-4 sm:px-6">Jumlah Orang</th>
+                    <th className="py-3 px-4 sm:px-6">Offline</th>
+                    <th className="py-3 px-4 sm:px-6">Online</th>
                   </tr>
                 </thead>
-                <tbody className="text-sm">
+                <tbody className="text-gray-800">
                   {[
                     { j: "1", off: 500000, on: 400000 },
                     { j: "2", off: 300000, on: 250000, suffix: "/orang" },
                     { j: "3–5", off: 200000, on: 175000, suffix: "/orang" },
                   ].map((r) => (
                     <tr key={r.j} className="border-t">
-                      <td className="py-3 px-6">{r.j} Orang</td>
-                      <td className="py-3 px-6">
+                      <td className="py-3 px-4 sm:px-6">{r.j} Orang</td>
+                      <td className="py-3 px-4 sm:px-6">
                         {currency(r.off)}
                         {r.suffix ? <span className="text-gray-500"> {r.suffix}</span> : null}
                       </td>
-                      <td className="py-3 px-6">
+                      <td className="py-3 px-4 sm:px-6">
                         {currency(r.on)}
                         {r.suffix ? <span className="text-gray-500"> {r.suffix}</span> : null}
                       </td>
@@ -200,24 +173,24 @@ function MateriSection() {
 
 function OsceSection() {
   return (
-    <section className="pb-20">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="pb-16 sm:pb-20">
+      <div className="max-w-6xl mx-auto px-4">
         {/* Pricing OSCE */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden opacity-0 animate-[fadeIn_0.5s_ease-out_forwards]">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden animate-[fadeIn_0.5s_ease-out_forwards]">
           <div className="px-6 py-4 border-b">
-            <h3 className="font-semibold text-[#111827]">
+            <h3 className="font-semibold text-[#111827] text-base sm:text-lg">
               Harga Kelas per Sesi (3 jam)
             </h3>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead className="bg-gray-50 text-gray-600 text-sm">
+            <table className="w-full text-left text-sm sm:text-base">
+              <thead className="bg-gray-50 text-gray-600 text-xs sm:text-sm">
                 <tr>
-                  <th className="py-3 px-6">Jumlah Orang</th>
-                  <th className="py-3 px-6">Harga / orang</th>
+                  <th className="py-3 px-4 sm:px-6">Jumlah Orang</th>
+                  <th className="py-3 px-4 sm:px-6">Harga / orang</th>
                 </tr>
               </thead>
-              <tbody className="text-sm">
+              <tbody className="text-gray-800">
                 {[
                   { j: "2 Orang", h: 400000 },
                   { j: "3 Orang", h: 300000 },
@@ -227,27 +200,27 @@ function OsceSection() {
                   { j: "10 Orang", h: 150000 },
                 ].map((r) => (
                   <tr key={r.j} className="border-t">
-                    <td className="py-3 px-6">{r.j}</td>
-                    <td className="py-3 px-6">{currency(r.h)}/orang</td>
+                    <td className="py-3 px-4 sm:px-6">{r.j}</td>
+                    <td className="py-3 px-4 sm:px-6">{currency(r.h)}/orang</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="px-6 py-4 text-sm text-gray-600 border-t">
+          <p className="px-6 py-4 text-xs sm:text-sm text-gray-600 border-t">
             *Hubungi admin untuk jumlah orang berbeda.
           </p>
         </div>
 
         {/* Cards: Lokasi & Pendaftaran */}
-        <div className="grid gap-6 md:grid-cols-2 mt-8">
+        <div className="grid gap-5 sm:gap-6 md:grid-cols-2 mt-8">
           <InfoCard
             icon={<MapPin className="w-6 h-6" />}
             title="Lokasi"
             desc={
               <>
-                Bisa sesuai keinginan kamu, <span className="italic">atau</span> disediakan
-                oleh MedSkill (online/offline).
+                Bisa sesuai keinginan kamu, <span className="italic">atau</span> disediakan oleh
+                MedSkill (online/offline).
               </>
             }
           />
@@ -256,7 +229,7 @@ function OsceSection() {
             title="Pendaftaran"
             desc={
               <>
-                Bit.ly/AskMedSkill <span className="italic">atau</span> hubungi WhatsApp admin.
+                Hubungi <span className="italic">WhatsApp</span>  admin.
               </>
             }
           />
@@ -283,7 +256,7 @@ function InfoCard({
   desc: React.ReactNode;
 }) {
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 transition-all">
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 transition-all text-sm sm:text-base">
       <div className="flex items-center gap-3">
         <div className="p-2 rounded-xl bg-[#E7F0FF] text-[#1E3A8A]">{icon}</div>
         <h3 className="font-semibold text-[#111827]">{title}</h3>
@@ -295,12 +268,12 @@ function InfoCard({
 
 function CtaBar() {
   return (
-    <div className="mt-10 md:mt-12 flex items-center justify-center">
+    <div className="mt-10 sm:mt-12 flex items-center justify-center">
       <a
         href={WA_LINK}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors shadow-sm"
+        className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 rounded-xl bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-colors shadow-sm text-sm sm:text-base"
       >
         <MessageCircle className="w-5 h-5" />
         Chat Admin untuk Pendaftaran

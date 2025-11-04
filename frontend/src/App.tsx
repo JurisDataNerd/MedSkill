@@ -8,11 +8,12 @@ import LesS1 from "./pages/LesS1";
 import BimbelPage from "./pages/BimbelUKMPPD/BimbelPage";
 import TryOutSection from "./pages/BimbelUKMPPD/components/TryOutSection";
 import TryoutExamPage from "./pages/TryoutExamPage";
- 
+import VerifyPage from "./pages/VerifyPage";
 
 // Halaman Admin
 import AdminDashboard from "./admin/AdminDashboard";
 import ManekinManager from "./admin/ManekinManager";
+import AdminBimbelManager from "./admin/AdminBimbelManager";
 
 // Proteksi Admin
 import AdminRoute from "./routes/AdminRoute";
@@ -31,7 +32,7 @@ export default function App() {
         <Route path="/bimbel" element={<BimbelPage />} />
         <Route path="/bimbel/tryout" element={<TryOutSection />} />
         <Route path="/tryout/demo" element={<TryoutExamPage />} />
-      
+        <Route path="/verify/:token" element={<VerifyPage />} />
 
         {/* ✅ Halaman Admin (HANYA ADMIN) */}
         <Route
@@ -47,6 +48,14 @@ export default function App() {
           element={
             <AdminRoute>
               <ManekinManager />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/bimbel"
+          element={
+            <AdminRoute>
+              <AdminBimbelManager />
             </AdminRoute>
           }
         />

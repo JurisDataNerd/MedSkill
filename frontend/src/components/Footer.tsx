@@ -1,4 +1,4 @@
-import { Mail, Phone, Facebook, Instagram, Linkedin } from "lucide-react";
+import { Mail, Phone, Facebook, Instagram} from "lucide-react";
 
 export default function Footer() {
   return (
@@ -21,9 +21,9 @@ export default function Footer() {
           <h3 className="font-semibold mb-3 text-lg">Navigasi</h3>
           <ul className="space-y-2 text-sm">
             <li><a href="/" className="hover:underline hover:text-blue-200">Home</a></li>
-            <li><a href="/rental" className="hover:underline hover:text-blue-200">Rental Alat Medis</a></li>
-            <li><a href="#courses" className="hover:underline hover:text-blue-200">Kursus</a></li>
-            <li><a href="#about" className="hover:underline hover:text-blue-200">Tentang Kami</a></li>
+            <li><a href="/les/s1" className="hover:underline hover:text-blue-200">Les S1</a></li>
+            <li><a href="/bimbel" className="hover:underline hover:text-blue-200">Bimbel UKMPDD</a></li>
+            <li><a href="/rental" className="hover:underline hover:text-blue-200">Sewa Manekin</a></li>
           </ul>
         </div>
 
@@ -32,10 +32,10 @@ export default function Footer() {
           <h3 className="font-semibold mb-3 text-lg">Kontak</h3>
           <ul className="space-y-2 text-sm">
             <li className="flex items-center gap-2">
-              <Phone size={16} /> +62 812-3456-7890
+              <Phone size={16} /> +62 851-5539-5070
             </li>
             <li className="flex items-center gap-2">
-              <Mail size={16} /> support@medskill.co.id
+              <Mail size={16} /> officemedskill.idn@gmail.com
             </li>
           </ul>
         </div>
@@ -44,9 +44,8 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold mb-3 text-lg">Ikuti Kami</h3>
           <div className="flex gap-3">
-            <a href="#" className="hover:text-blue-300 transition"><Facebook size={20} /></a>
-            <a href="#" className="hover:text-blue-300 transition"><Instagram size={20} /></a>
-            <a href="#" className="hover:text-blue-300 transition"><Linkedin size={20} /></a>
+            <a href="https://www.tiktok.com/@medskill.idn" className="hover:text-blue-300 transition"><Facebook size={20} /></a>
+            <a href="https://www.instagram.com/medskill.idn/" className="hover:text-blue-300 transition"><Instagram size={20} /></a>
           </div>
         </div>
       </div>
