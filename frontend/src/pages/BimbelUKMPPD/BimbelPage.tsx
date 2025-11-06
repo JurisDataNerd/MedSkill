@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { supabase } from "../../lib/supabaseClient";
 import Footer from "../../components/Footer";
@@ -25,20 +25,38 @@ const tabs: { key: TabKey; label: string }[] = [
 ];
 
 export default function BimbelPage() {
-  const [activeTab, setActiveTab] = useState<TabKey>("kos");
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // 🪄 Ambil tab langsung dari URL untuk inisialisasi awal
+  const params = new URLSearchParams(location.search);
+  const initialTab = (params.get("tab") as TabKey) || "kos";
+
+  const [activeTab, setActiveTab] = useState<TabKey>(
+    tabs.some((t) => t.key === initialTab) ? initialTab : "kos"
+  );
   const [comingSoon, setComingSoon] = useState(false);
   const [classes, setClasses] = useState<BimbelClass[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-  const navigate = useNavigate();
 
-  // 🔹 Fetch kelas berdasarkan kategori aktif
+  // 🔹 Update activeTab jika URL berubah
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tab = params.get("tab") as TabKey | null;
+    if (tab && tabs.some((t) => t.key === tab)) {
+      setActiveTab(tab);
+    }
+  }, [location.search]);
+
+  // 🔹 Fetch kelas dari Supabase berdasarkan activeTab
   useEffect(() => {
     const fetchClasses = async () => {
       try {
         setLoading(true);
         const category = activeTab.toUpperCase();
+
         if (activeTab === "osce" || activeTab === "tryout") {
           setClasses([]);
           setComingSoon(true);
@@ -56,18 +74,19 @@ export default function BimbelPage() {
         setClasses(data || []);
         setComingSoon(false);
       } catch (err) {
-        console.error("Gagal mengambil data kelas:", err);
+        console.error("❌ Gagal mengambil data kelas:", err);
         setClasses([]);
       } finally {
         setLoading(false);
       }
     };
+
     fetchClasses();
   }, [activeTab]);
 
   const handleTabClick = (tab: TabKey) => setActiveTab(tab);
 
-  // 🔹 REPLACEMENT: Modal Popup menggantikan alert()
+  // 🔹 Modal popup untuk pendaftaran
   const handleDaftarClick = async (link?: string) => {
     if (!link) {
       setModalMessage("Link pendaftaran belum tersedia.");
@@ -129,7 +148,7 @@ export default function BimbelPage() {
           })}
         </motion.div>
 
-        {/* COMING SOON ALERT */}
+        {/* COMING SOON */}
         {comingSoon && (
           <motion.div
             className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"
@@ -182,7 +201,7 @@ export default function BimbelPage() {
           </motion.div>
         )}
 
-        {/* CONTENT AREA */}
+        {/* CONTENT */}
         {!comingSoon && (
           <motion.div
             initial={{ opacity: 0 }}

@@ -9,6 +9,7 @@ import BimbelPage from "./pages/BimbelUKMPPD/BimbelPage";
 import TryOutSection from "./pages/BimbelUKMPPD/components/TryOutSection";
 import TryoutExamPage from "./pages/TryoutExamPage";
 import VerifyPage from "./pages/VerifyPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Halaman Admin
 import AdminDashboard from "./admin/AdminDashboard";
@@ -23,7 +24,7 @@ export default function App() {
     <BrowserRouter>
       {/* ✅ Navbar selalu muncul */}
       <Navbar />
-
+      <ScrollToTop />
       <Routes>
         {/* ✅ Halaman User */}
         <Route path="/" element={<LandingPage />} />
@@ -32,7 +33,7 @@ export default function App() {
         <Route path="/bimbel" element={<BimbelPage />} />
         <Route path="/bimbel/tryout" element={<TryOutSection />} />
         <Route path="/tryout/demo" element={<TryoutExamPage />} />
-        <Route path="/verify/:token" element={<VerifyPage />} />
+        <Route path="/verify" element={<VerifyPage />} />
 
         {/* ✅ Halaman Admin (HANYA ADMIN) */}
         <Route

@@ -1,6 +1,6 @@
 import { useEffect, useState, Fragment } from "react";
 import { supabase } from "../lib/supabaseClient";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuthModal } from "../context/AuthContext";
 import { Bars3Icon, XMarkIcon, ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 import { Menu, Transition } from "@headlessui/react";
@@ -8,7 +8,7 @@ import { Menu, Transition } from "@headlessui/react";
 export default function Navbar() {
   const { showAuthModal, openAuthModal, closeAuthModal } = useAuthModal();
   const [session, setSession] = useState<any>(null);
-  const [userProfile, setUserProfile] = useState<{ full_name?: string; university?: string }>({});
+  const [userProfile, setUserProfile] = useState<{ full_name?: string; university?: string; role?: string }>({});
   const [isRegister, setIsRegister] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -45,7 +45,7 @@ export default function Navbar() {
   const fetchUserProfile = async (userId: string) => {
     const { data, error } = await supabase
       .from("users")
-      .select("full_name, university")
+      .select("full_name, university, role")
       .eq("id", userId)
       .single();
     if (!error && data) setUserProfile(data);
@@ -64,7 +64,7 @@ export default function Navbar() {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
   }, [mobileOpen]);
 
-  // ====== HANDLE LOGIN & REGISTER ======
+  // ====== HANDLE LOGIN & REGISTER (SUPABASE ONLY) ======
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -79,20 +79,28 @@ export default function Navbar() {
           return;
         }
 
-        const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL || "http://localhost:4000"}/api/email/register`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password, full_name: fullName, university }),
-          }
-        );
-
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.error || "Gagal melakukan registrasi.");
+                const { error } = await supabase.auth.signUp({
+                  email,
+                  password,
+                  options: {
+                    data: {
+                      full_name: fullName,
+                      university,
+                    },
+                    emailRedirectTo: "http://localhost:5173/verify",
+                  },
+                });
+        
+                if (error) throw error;
 
         setSuccess("Registrasi berhasil! Silakan cek email untuk verifikasi akun.");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setFullName("");
+        setUniversity("");
       } else {
+        // 🔹 Login user
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
         if (data.session) {
@@ -138,9 +146,7 @@ export default function Navbar() {
       {/* NAVBAR DESKTOP */}
       <header
         className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ease-in-out
-          bg-white/70 backdrop-blur-md border-b border-white/20 ${
-            scrolled ? "shadow-sm" : ""
-          }`}
+          bg-white/70 backdrop-blur-md border-b border-white/20 ${scrolled ? "shadow-sm" : ""}`}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
@@ -173,6 +179,16 @@ export default function Navbar() {
                 </button>
               ))}
 
+              {/* ADMIN DASHBOARD BUTTON */}
+              {session && userProfile.role === "admin" && (
+                <Link
+                  to="/admin"
+                  className="ml-2 rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
+                >
+                  Admin Dashboard
+                </Link>
+              )}
+
               {!session ? (
                 <button
                   onClick={() => {
@@ -184,7 +200,6 @@ export default function Navbar() {
                   Login
                 </button>
               ) : (
-                // ================= NEW GOOGLE-LIKE ACCOUNT MENU =================
                 <Menu as="div" className="relative ml-3">
                   <Menu.Button className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 shadow-sm hover:shadow-md transition-all duration-200">
                     <img
@@ -223,9 +238,8 @@ export default function Navbar() {
                           {({ active }) => (
                             <button
                               onClick={handleLogout}
-                              className={`${
-                                active ? "bg-gray-50" : ""
-                              } flex w-full items-center gap-2 px-4 py-2 text-sm text-gray-700`}
+                              className={`${active ? "bg-gray-50" : ""
+                                } flex w-full items-center gap-2 px-4 py-2 text-sm text-gray-700`}
                             >
                               <ArrowRightOnRectangleIcon className="h-5 w-5 text-gray-500" />
                               Logout
@@ -236,7 +250,6 @@ export default function Navbar() {
                     </Menu.Items>
                   </Transition>
                 </Menu>
-                // ================= END GOOGLE-LIKE ACCOUNT MENU =================
               )}
             </nav>
 
@@ -286,6 +299,17 @@ export default function Navbar() {
                   {item.label}
                 </button>
               ))}
+
+              {/* ADMIN DASHBOARD MOBILE */}
+              {session && userProfile.role === "admin" && (
+                <Link
+                  to="/admin"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-left px-2 py-2 rounded-lg text-base font-medium bg-indigo-600 text-white hover:bg-indigo-700"
+                >
+                  Admin Dashboard
+                </Link>
+              )}
             </nav>
 
             <div className="mt-auto border-t pt-4">

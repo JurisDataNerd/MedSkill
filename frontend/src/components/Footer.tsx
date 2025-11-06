@@ -1,4 +1,5 @@
-import { Mail, Phone, Facebook, Instagram} from "lucide-react";
+import { Mail, Phone, Instagram} from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -11,8 +12,7 @@ export default function Footer() {
         <div>
           <h2 className="text-2xl font-bold mb-3">MedSkill</h2>
           <p className="text-gray-200 text-sm leading-relaxed">
-            Platform pembelajaran dan layanan medis modern berbasis teknologi.
-            Terpercaya, efisien, dan mudah diakses kapan saja.
+            Solusi Lengkap Belajar Kedokteran.
           </p>
         </div>
 
@@ -20,10 +20,10 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold mb-3 text-lg">Navigasi</h3>
           <ul className="space-y-2 text-sm">
-            <li><a href="/" className="hover:underline hover:text-blue-200">Home</a></li>
-            <li><a href="/les/s1" className="hover:underline hover:text-blue-200">Les S1</a></li>
-            <li><a href="/bimbel" className="hover:underline hover:text-blue-200">Bimbel UKMPDD</a></li>
-            <li><a href="/rental" className="hover:underline hover:text-blue-200">Sewa Manekin</a></li>
+            <li><Link to="/" className="hover:underline hover:text-blue-200">Home</Link></li>
+            <li><Link to="/les/s1" className="hover:underline hover:text-blue-200">Les S1</Link></li>
+            <li><Link to="/bimbel" className="hover:underline hover:text-blue-200">Bimbel UKMPDD</Link></li>
+            <li><Link to="/rental" className="hover:underline hover:text-blue-200">Sewa Manekin</Link></li>
           </ul>
         </div>
 
@@ -44,7 +44,7 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold mb-3 text-lg">Ikuti Kami</h3>
           <div className="flex gap-3">
-            <a href="https://www.tiktok.com/@medskill.idn" className="hover:text-blue-300 transition"><Facebook size={20} /></a>
+            <a href="https://www.tiktok.com/@medskill.idn" className="hover:text-blue-300 transition"><img src="/tiktok.svg" alt="" width={20}  /></a>
             <a href="https://www.instagram.com/medskill.idn/" className="hover:text-blue-300 transition"><Instagram size={20} /></a>
           </div>
         </div>

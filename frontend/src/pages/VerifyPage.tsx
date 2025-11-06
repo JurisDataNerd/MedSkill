@@ -1,42 +1,22 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function VerifyPage() {
-  const { token } = useParams<{ token: string }>();
+  const [params] = useSearchParams();
   const navigate = useNavigate();
-  const [status, setStatus] = useState<"loading" | "success" | "error" | "info">("loading");
-  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
 
   useEffect(() => {
-    const verifyAccount = async () => {
-      try {
-        const baseUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
-        const res = await fetch(`${baseUrl}/api/email/verify/${token}`);
-        const data = await res.json();
+    const token = params.get("token");
+    const type = params.get("type");
 
-        if (data.success) {
-          setStatus("success");
-          setMessage(data.message || "Akun berhasil diverifikasi!");
-          setTimeout(() => navigate("/"), 3000);
-        } else if (
-          data.message?.toLowerCase().includes("sudah diverifikasi") ||
-          data.message?.toLowerCase().includes("sudah digunakan")
-        ) {
-          setStatus("info");
-          setMessage("Akun berhasil diverifikasi! Silahkan login kembali dengan email dan password Anda.");
-          setTimeout(() => navigate("/"), 3000);
-        } else {
-          setStatus("error");
-          setMessage(data.message || "Token tidak valid atau sudah digunakan.");
-        }
-      } catch {
-        setStatus("error");
-        setMessage("Terjadi kesalahan pada server. Silakan coba lagi nanti.");
-      }
-    };
-
-    verifyAccount();
-  }, [token, navigate]);
+    if (token && type === "signup") {
+      setStatus("success");
+      setTimeout(() => navigate("/"), 3000);
+    } else {
+      setStatus("error");
+    }
+  }, [params, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -49,37 +29,22 @@ export default function VerifyPage() {
             <p className="text-gray-600 text-sm">Mohon tunggu sebentar.</p>
           </>
         )}
-
         {status === "success" && (
           <>
             <h2 className="text-2xl font-bold text-green-600 mb-3">
               ✅ Verifikasi Berhasil!
             </h2>
-            <p className="text-gray-600">{message}</p>
-            <p className="text-sm text-gray-400 mt-3">
-              Anda akan dialihkan ke halaman utama...
+            <p className="text-gray-600">
+              Akun Anda telah diverifikasi. Anda akan dialihkan ke halaman utama...
             </p>
           </>
         )}
-
-        {status === "info" && (
-          <>
-            <h2 className="text-2xl font-bold text-green-600 mb-3">
-              ✅ Verifikasi Berhasil!
-            </h2>
-            <p className="text-gray-600">{message}</p>
-            <p className="text-sm text-gray-400 mt-3">
-              Mengarahkan Anda ke halaman utama...
-            </p>
-          </>
-        )}
-
         {status === "error" && (
           <>
             <h2 className="text-2xl font-bold text-red-600 mb-3">
               ❌ Verifikasi Gagal
             </h2>
-            <p className="text-gray-600">{message}</p>
+            <p className="text-gray-600">Token tidak valid atau sudah kadaluarsa.</p>
             <button
               onClick={() => navigate("/")}
               className="mt-4 px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"

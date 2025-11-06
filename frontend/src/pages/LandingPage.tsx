@@ -4,9 +4,12 @@ import { getActiveHotTopics } from "../lib/hotTopicService";
 import Footer from "../components/Footer";
 import "../index.css";
 import { GraduationCap, BookOpen, Brain, Stethoscope } from "lucide-react";
+import { useAuthModal } from "../context/AuthContext";
 import { Flame, ArrowRight } from "lucide-react";
 
 export default function LandingPage() {
+  const { openAuthModal } = useAuthModal();
+  const [, setIsRegister] = useState(false);
   const navigate = useNavigate();
   const sectionsRef = useRef<NodeListOf<HTMLElement> | null>(null);
 
@@ -89,13 +92,16 @@ export default function LandingPage() {
               <p>Les S1 | Bimbel UKMPPD | Sewa Manekin</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <button
-                  onClick={() => scrollToId("hot-topic")}
+                  onClick={() => {
+                    setIsRegister(false);
+                    openAuthModal();
+                  }}
                   className="px-6 py-3 rounded-xl bg-[#2563EB] text-white hover:bg-[#1D4ED8] shadow-sm transition"
                 >
                   Bergabung dengan kami
                 </button>
                 <button
-                  onClick={() => scrollToId("mentor")}
+                  onClick={() => scrollToId("hot-topic")}
                   className="px-6 py-3 rounded-xl border border-gray-300 hover:bg-gray-50 transition"
                 >
                   Pelajari lebih lanjut
@@ -278,21 +284,24 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* PARTNER */}
-      <section id="partner" className="py-16 bg-white fade-in-section">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A8A] mb-10">
-            Our Partner
-          </h2>
-          <div className="flex justify-center items-center">
-            <img
-              src="/partner1.png"
-              alt="Partner"
-              className="w-48 sm:w-56 md:w-60 lg:w-56 h-auto object-contain grayscale hover:grayscale-0 transition duration-300"
-            />
-          </div>
-        </div>
-      </section>
+     {/* PARTNER */}
+<section id="partner" className="py-16 bg-white fade-in-section">
+  <div className="max-w-7xl mx-auto px-4 text-center">
+    <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A8A] mb-10">
+      Our Partner
+    </h2>
+
+    {/* Partner Logo */}
+    <div className="flex justify-center items-center">
+      <img
+        src="/partner1.png"
+        alt="Partner"
+        className="w-56 sm:w-68 md:w-70 lg:w-68 h-auto object-contain grayscale hover:grayscale-0 transition duration-300"
+      />
+    </div>
+  </div>
+</section>
+
 
       {/* CTA */}
       <section className="py-16 md:py-24 bg-[#1E3A8A] fade-in-section">

@@ -12,7 +12,10 @@ export async function getActiveHotTopics() {
     id: item.id,
     title: item.title,
     description: item.description,
-    img: item.img_url,
-    link: "/bimbel",
+    category: item.category,
+    img: item.img,
+    link: item.category
+  ? `/bimbel?tab=${item.category.toLowerCase()}`
+  : "/bimbel",
   }));
 }
